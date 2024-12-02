@@ -3,7 +3,7 @@ Project Overview
 This repository contains implementations using various parallel computing frameworks and numerical libraries, including CUDA, Eigen, MPI, OpenACC, and OpenMP. A shared directory structure and compilation process are used across all frameworks to maintain consistency and modularity. Additionally, a common approach to handling tasks was applied wherever possible to ensure uniformity across implementations.
 
 Directory Structure
-
+```
 framework/
 ├── build         # Compiled binaries and build artifacts
 ├── include       # Header files
@@ -13,7 +13,7 @@ framework/
 ├── README.md     # Framework-specific documentation
 ├── scripts       # Helper scripts for running or automating tasks
 └── src           # Source files
-
+```
 This directory structure is repeated for each of the following frameworks:
 
     cuda/
@@ -32,19 +32,19 @@ There is also a data/ directory containing shared input data, like images and ma
 Compilation and Execution
 The process for compiling and running executables is the same for all frameworks:
 
-    Navigate to the Desired Framework:
-
+Navigate to the Desired Framework:
+```
 cd <framework-name>  # Replace <framework-name> with cuda, eigen, mpi, etc.
-
+```
 Compile the Program: Use the Makefile to build the executable:
-
+```
 make
-
+```
 Run the Program: Execute the compiled binary from the build/ directory:
-
+```
     ./build/your_program
-
-    Access Outputs: Check the outputs/ directory for results, logs, or generated files.
+```
+Access Outputs: Check the outputs/ directory for results, logs, or generated files.
 
 Design Philosophy
 
