@@ -19,10 +19,10 @@ Linear Solvers
 
 Compile & Run
 
-    Build:
-
+Build:
+```
 make
-
+```
 Binaries are in build/bin/ and object files in build/obj/.
 
 Run: Execute the compiled binaries:
