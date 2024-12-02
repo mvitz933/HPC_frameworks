@@ -1,0 +1,3 @@
+#pragma once
+
+void jacobi_relaxation(int n, int m, int iter_max, float tol, float *A, float *Anew, float *y0);

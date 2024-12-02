@@ -1,0 +1,40 @@
+#include "multiply.hpp"
+#include <stdexcept>
+#include <vector>
+#include <openacc.h>
+
+std::vector<std::vector<double>> multiply_matrices(const std::vector<std::vector<double>>& A,
+                                                   const std::vector<std::vector<double>>& B) {
+    // Get dimensions of matrices
+    std::size_t rowsA = A.size();
+    std::size_t colsA = A[0].size();
+    std::size_t rowsB = B.size();
+    std::size_t colsB = B[0].size();
+
+    // Check if dimensions are compatible for multiplication
+    if (colsA != rowsB) {
+        throw std::invalid_argument("Matrix dimensions are not compatible for multiplication.");
+    }
+
+    // Initialize the result matrix with zeros
+    std::vector<std::vector<double>> C(rowsA, std::vector<double>(colsB, 0.0));
+
+    // Transfer matrices to the GPU
+    #pragma acc data copyin(A[0:rowsA][0:colsA], B[0:rowsB][0:colsB]) copyout(C[0:rowsA][0:colsB])
+    {
+        // Perform matrix multiplication using OpenACC
+        #pragma acc parallel loop collapse(2) present(A, B, C)
+        for (std::size_t i = 0; i < rowsA; ++i) {
+            for (std::size_t j = 0; j < colsB; ++j) {
+                double sum = 0.0;
+                #pragma acc loop reduction(+:sum)
+                for (std::size_t k = 0; k < colsA; ++k) {
+                    sum += A[i][k] * B[k][j];
+                }
+                C[i][j] = sum;
+            }
+        }
+    }
+
+    return C;
+}
