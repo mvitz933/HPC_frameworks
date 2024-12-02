@@ -27,10 +27,10 @@ Utilities and Demos
 
 Compile & Run
 
-    Build:
-
+Build:
+```
 make
-
+```
 Binaries go to build/bin/.
 
 Run:
